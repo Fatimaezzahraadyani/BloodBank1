@@ -26,7 +26,7 @@ public class Donneur extends User {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @Column(name = "addresse", nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Column(name = "dateSoumission", nullable = false)
