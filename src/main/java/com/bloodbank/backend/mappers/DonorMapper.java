@@ -12,12 +12,12 @@ import java.time.LocalDate;
 @Component
 public class DonorMapper {
 
-    public static Donneur toEntity(RegisterDonorDTO dto, PasswordEncoder encoder) {
+    public static Donneur toEntity(RegisterDonorDTO dto) {
         Donneur d = new Donneur();
         d.setFirstName(dto.firstName());
         d.setLastName(dto.lastName());
         d.setEmail(dto.email());
-        d.setPassword(encoder.encode(dto.password()));
+        d.setPassword(dto.password());
         d.setAddress(dto.address());
         d.setBirthdate(dto.birthdate());
         d.setBloodType(dto.bloodType());

@@ -2,12 +2,15 @@ package com.bloodbank.backend.services;
 
 
 import com.bloodbank.backend.dto.AuthRequest;
+import com.bloodbank.backend.dto.AuthResponse;
 import com.bloodbank.backend.dto.RegisterDonorDTO;
 import com.bloodbank.backend.mappers.DonorMapper;
 import com.bloodbank.backend.model.Donneur;
+import com.bloodbank.backend.model.Role;
 import com.bloodbank.backend.model.User;
 import com.bloodbank.backend.repository.DonorRepository;
 import com.bloodbank.backend.repository.UserRepository;
+import com.bloodbank.backend.security.CustomUserDetails;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -55,9 +58,21 @@ public class AuthService {
         return jwtService.generateToken(claims, userDetails);
     }
 
-    public void registerDonor(RegisterDonorDTO dto) {
-        Donneur donneur = DonorMapper.toEntity(dto, passwordEncoder);
+    public AuthResponse registerDonor(RegisterDonorDTO dto) {
+        Donneur donneur = DonorMapper.toEntity(dto);
+        donneur.setPassword(passwordEncoder.encode(dto.password()));
+        donneur.setRole(Role.DONOR);
         donorRepository.save(donneur);
+
+        CustomUserDetails userDetails = new CustomUserDetails(donneur);
+
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("role", donneur.getRole().name());
+
+        String jwt = jwtService.generateToken(extraClaims, userDetails);
+
+        return new AuthResponse(jwt, donneur.getRole().name());
+
     }
 
     public String getRoleByEmail(String email) {

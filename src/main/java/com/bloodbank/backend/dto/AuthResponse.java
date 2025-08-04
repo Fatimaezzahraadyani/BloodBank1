@@ -5,7 +5,6 @@ public class AuthResponse {
     private String role;
     private String token;
 
-    public AuthResponse(){}
 
 
     public AuthResponse(String token) {

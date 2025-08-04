@@ -5,23 +5,21 @@ import com.bloodbank.backend.dto.AuthResponse;
 import com.bloodbank.backend.dto.RegisterDTO;
 import com.bloodbank.backend.dto.RegisterDonorDTO;
 import com.bloodbank.backend.mappers.DonorMapper;
-import com.bloodbank.backend.model.Donneur;
+
 import com.bloodbank.backend.repository.DonorRepository;
 import com.bloodbank.backend.repository.UserRepository;
 import com.bloodbank.backend.services.AuthService;
 import com.bloodbank.backend.services.JwtService;
 import com.bloodbank.backend.services.UserServices;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
 
@@ -51,20 +49,11 @@ public class AuthController {
     }
 
     @PostMapping("/register/donor")
-    public ResponseEntity<String> registerDonor(@RequestBody RegisterDonorDTO dto) {
-        try {
-            authService.registerDonor(dto);
-            return ResponseEntity.ok("Donneur enregistré avec succès !");
-        } catch (Exception e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Erreur lors de l'enregistrement : " + e.getMessage());
-        }
+    public ResponseEntity<AuthResponse> registerDonor(@RequestBody RegisterDonorDTO dto) {
+        AuthResponse authResponse = authService.registerDonor(dto);
+        return ResponseEntity.ok(authResponse);
+
     }
-
-
-
-
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request){
