@@ -11,34 +11,34 @@ import java.util.Date;
 @Table (name = "Donneurs")
 public class Donneur extends User {
 
-    @Column(name = "bloodType", nullable = false)
+    @Column(name = "bloodType", nullable = true)
     private String bloodType;
 
-    @Column(name = "birthdate", nullable = false)
+    @Column(name = "birthdate", nullable = true)
     private LocalDate birthdate;
 
-    @Column(name = "weight", nullable = false)
+    @Column(name = "weight", nullable = true)
     private double weight;
 
-    @Column(name = "maladieHistory", nullable = false)
+    @Column(name = "maladieHistory", nullable = true)
     private String maladieHistory;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = true)
     private String phone;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = true)
     private String address;
 
-    @Column(name = "dateSoumission", nullable = false)
+    @Column(name = "dateSoumission", nullable = true)
     private LocalDate dateSoumission;
 
-    @Column(name = "maladiesChroniques", nullable = false)
+    @Column(name = "maladiesChroniques", nullable = true)
     private String maladiesChroniques;
 
-    @Column(name = "priseDeMedicaments", nullable = false)
+    @Column(name = "priseDeMedicaments", nullable = true)
     private boolean priseDeMedicaments;
 
-    @Column(name = "chirurgiesRecentes", nullable = false)
+    @Column(name = "chirurgiesRecentes", nullable = true)
     private boolean chirurgiesRecentes;
 
     public String getBloodType() {
