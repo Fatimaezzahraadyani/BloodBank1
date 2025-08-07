@@ -18,6 +18,7 @@ public class DonorMapper {
         d.setEmail(dto.email());
         d.setPassword(dto.password());
         d.setDateSoumission(LocalDate.now());
+
         d.setRole(Role.DONOR);
         return d;
     }

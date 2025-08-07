@@ -43,12 +43,12 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterDTO registerDTO) {
-        return userService.register(registerDTO);
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterDTO registerDTO) {
+//        return userService.register(registerDTO);
+//    }
 
-    @PostMapping("/register/donor")
+    @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerDonor(@RequestBody RegisterDonorDTO dto) {
         AuthResponse authResponse = authService.registerDonor(dto);
         return ResponseEntity.ok(authResponse);
