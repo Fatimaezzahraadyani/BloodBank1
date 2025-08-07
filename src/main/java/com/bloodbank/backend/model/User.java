@@ -1,5 +1,6 @@
 package com.bloodbank.backend.model;
 
+import jakarta.annotation.Resource;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +23,10 @@ public abstract class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
     public long getId() {
         return id;
@@ -63,4 +68,11 @@ public abstract class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
