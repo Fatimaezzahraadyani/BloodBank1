@@ -42,10 +42,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/register/donor").permitAll()
-                        .requestMatchers("/api/CentresCollecte/addCenter").permitAll()
+                        //.requestMatchers("/api/CentresCollecte/addCenter").permitAll()
                         //.requestMatchers("/user/register").permitAll()
                         //.requestMatchers("/user/login").permitAll()
-                        .requestMatchers("/api/admin/**").permitAll()
+                        //.requestMatchers("/api/admin/**").permitAll()
                         //.requestMatchers("/api/donor/**").hasRole("DONOR")
                         .anyRequest().authenticated()
                 )
