@@ -12,12 +12,16 @@ import java.util.Optional;
 public class CentreCollecteService {
 
 
-    @Autowired
-    private CentreCollecteRepository centreCollecteRepository;
+    private final  CentreCollecteRepository centreCollecteRepository;
 
-    public List<CentreCollecte> getCentreCollecteRepository() {
+    public CentreCollecteService(CentreCollecteRepository centreCollecteRepository) {
+        this.centreCollecteRepository = centreCollecteRepository;
+    }
+
+    public List<CentreCollecte> getAllCentresCollecte() {
         return centreCollecteRepository.findAll();
     }
+
 
     public Optional<CentreCollecte> getCentreCollecteById(Long id) {
         return centreCollecteRepository.findById(id);
