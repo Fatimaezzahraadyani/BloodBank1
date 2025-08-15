@@ -16,10 +16,15 @@ public class RendezVous {
     private String heure;
 
     @ManyToOne
+    @JoinColumn(name = "donneur_id", nullable = false)
     private Donneur donneur;
 
     @ManyToOne
+    @JoinColumn(name = "centre_collecte_id", nullable = false)
     private CentreCollecte centreCollecte;
+
+    @Enumerated(EnumType.STRING)
+    private Statut statut = Statut.en_attente;
 
     public long getId() {
         return id;
@@ -59,5 +64,13 @@ public class RendezVous {
 
     public void setCentreCollecte(CentreCollecte centreCollecte) {
         this.centreCollecte = centreCollecte;
+    }
+
+    public Statut getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Statut statut) {
+        this.statut = statut;
     }
 }
