@@ -1,6 +1,7 @@
 package com.bloodbank.backend.services;
 
 
+import com.bloodbank.backend.model.CentreCollecte;
 import com.bloodbank.backend.model.Donneur;
 import com.bloodbank.backend.model.RendezVous;
 import com.bloodbank.backend.repository.RendezVousRepository;
@@ -24,6 +25,10 @@ public class RendezVousService {
 
     public List<RendezVous> getByDonneur(Donneur donneur){
         return rendezVousRepository.findByDonneur(donneur);
+    }
+
+    public List<RendezVous> getByCenter(CentreCollecte centreCollecte){
+        return rendezVousRepository.findByCentreCollecte(centreCollecte);
     }
 
 
