@@ -1,6 +1,7 @@
 package com.bloodbank.backend.controller;
 
 
+import com.bloodbank.backend.model.CentreCollecte;
 import com.bloodbank.backend.model.Donneur;
 import com.bloodbank.backend.model.RendezVous;
 import com.bloodbank.backend.repository.CentreCollecteRepository;
@@ -35,6 +36,12 @@ public class RendezVousController {
     public ResponseEntity<List<RendezVous>> getByDonneur(@PathVariable Long donneurId){
         Donneur donneur = donorRepository.findById(donneurId).orElseThrow();
         return ResponseEntity.ok(rendezVousService.getByDonneur(donneur));
+    }
+
+    @GetMapping("/centre/{centreId}")
+    private ResponseEntity<List<RendezVous>> getByCenter(@PathVariable Long centreId){
+        CentreCollecte centreCollecte = centreCollecteRepository.findById(centreId).orElseThrow();
+        return ResponseEntity.ok(rendezVousService.getByCenter(centreCollecte));
     }
 
 
