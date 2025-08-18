@@ -45,4 +45,9 @@ public class RendezVousService {
     public Optional<RendezVous> findById(Long id) {
         return rendezVousRepository.findById(id);
     }
+    public void delete(Long id) {
+        RendezVous rendezVous = rendezVousRepository.findById(id).orElseThrow();
+        rendezVousRepository.delete(rendezVous);
+    }
+
 }

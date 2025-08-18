@@ -64,6 +64,12 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.updateReservation(id,rendezVous));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    public void deleteReservation(@PathVariable Long id) {
+        rendezVousService.delete(id);
+    }
+
 
 
 
