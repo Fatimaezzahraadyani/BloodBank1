@@ -7,6 +7,7 @@ import com.bloodbank.backend.model.RendezVous;
 import com.bloodbank.backend.repository.CentreCollecteRepository;
 import com.bloodbank.backend.repository.DonorRepository;
 import com.bloodbank.backend.services.RendezVousService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +28,24 @@ public class RendezVousController {
         this.centreCollecteRepository = centreCollecteRepository;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/all")
+    public ResponseEntity<List<RendezVous>> getAllRendezVous() {
+        return ResponseEntity.ok(rendezVousService.findAll());
+    }
+
     @PreAuthorize("hasAuthority('ROLE_DONOR')")
     @PostMapping
     public ResponseEntity<RendezVous> creat(@RequestBody RendezVous rendezVous){
         return ResponseEntity.ok(rendezVousService.create(rendezVous));
     }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/{id}")
+    public ResponseEntity<RendezVous> getById(@PathVariable Long id) {
+        return ResponseEntity.of(rendezVousService.findById(id));
+    }
+
 
     @GetMapping("/donneur/{donneurId}")
     public ResponseEntity<List<RendezVous>> getByDonneur(@PathVariable Long donneurId){
@@ -40,10 +54,17 @@ public class RendezVousController {
     }
 
     @GetMapping("/centre/{centreId}")
-    private ResponseEntity<List<RendezVous>> getByCenter(@PathVariable Long centreId){
+    public ResponseEntity<List<RendezVous>> getByCenter(@PathVariable Long centreId){
         CentreCollecte centreCollecte = centreCollecteRepository.findById(centreId).orElseThrow();
         return ResponseEntity.ok(rendezVousService.getByCenter(centreCollecte));
     }
+
+    @PutMapping("/updateReservation/{id}")
+    public ResponseEntity<RendezVous> update(@PathVariable Long id, @RequestBody RendezVous rendezVous){
+        return ResponseEntity.ok(rendezVousService.updateReservation(id,rendezVous));
+    }
+
+
 
 
 

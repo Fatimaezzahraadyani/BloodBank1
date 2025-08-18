@@ -8,6 +8,7 @@ import com.bloodbank.backend.repository.RendezVousRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RendezVousService {
@@ -31,5 +32,17 @@ public class RendezVousService {
         return rendezVousRepository.findByCentreCollecte(centreCollecte);
     }
 
+    public RendezVous updateReservation(Long id ,RendezVous rendezVous){
+        rendezVous.setId(id);
+        return rendezVousRepository.save(rendezVous);
+    }
 
+
+    public List<RendezVous> findAll() {
+        return rendezVousRepository.findAll();
+    }
+
+    public Optional<RendezVous> findById(Long id) {
+        return rendezVousRepository.findById(id);
+    }
 }
