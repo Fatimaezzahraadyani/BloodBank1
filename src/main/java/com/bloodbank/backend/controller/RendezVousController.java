@@ -6,9 +6,9 @@ import com.bloodbank.backend.model.Donneur;
 import com.bloodbank.backend.model.RendezVous;
 import com.bloodbank.backend.repository.CentreCollecteRepository;
 import com.bloodbank.backend.repository.DonorRepository;
-import com.bloodbank.backend.repository.RendezVousRepository;
 import com.bloodbank.backend.services.RendezVousService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +27,7 @@ public class RendezVousController {
         this.centreCollecteRepository = centreCollecteRepository;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_DONOR')")
     @PostMapping
     public ResponseEntity<RendezVous> creat(@RequestBody RendezVous rendezVous){
         return ResponseEntity.ok(rendezVousService.create(rendezVous));
