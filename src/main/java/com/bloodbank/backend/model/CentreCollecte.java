@@ -17,8 +17,18 @@ public class CentreCollecte {
     @Column(name = "adresse", nullable = false)
     private String adresse;
 
-    @Column(name = "ville", nullable = false, unique = true)
+    @Column(name = "ville", nullable = false)
     private String ville;
+
+    public CentreCollecte() {
+    }
+
+    public CentreCollecte(long id, String name, String adresse, String ville) {
+        this.id = id;
+        this.name = name;
+        this.adresse = adresse;
+        this.ville = ville;
+    }
 
     public long getId() {
         return id;
