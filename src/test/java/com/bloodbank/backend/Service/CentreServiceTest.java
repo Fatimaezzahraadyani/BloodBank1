@@ -73,6 +73,38 @@ public class CentreServiceTest {
     }
 
 
+    @Test
+    void testUpdateCentreCollecte() {
+        //Créer un centre initial
+        CentreCollecte centre = new CentreCollecte();
+        centre.setName("Centre Hassan II");
+        centre.setAdresse("Avenue Royale");
+        centre.setVille("is");
+
+        CentreCollecte saved = centreCollecteRepository.save(centre);
+
+        //Modifier les champs
+        saved.setName("Centre Mohammed V");
+        saved.setAdresse("Boulevard Hassan II");
+
+        //Appeler la méthode update
+        CentreCollecte updated = centreCollecteService.update(saved, saved.getId());
+
+        //Vérifications
+        assertNotNull(updated);
+        assertEquals(saved.getId(), updated.getId()); //  le même ID
+        assertEquals("Centre Mohammed V", updated.getName()); // Nouveau nom
+        assertEquals("Boulevard Hassan II", updated.getAdresse()); // Nouvelle adresse
+        assertEquals("is", updated.getVille()); // Ville n'a pas changé
+    }
+
+    @Test
+    void testDeleteCentreCollecte(){
+
+    }
+
+
+
 
 
 }
