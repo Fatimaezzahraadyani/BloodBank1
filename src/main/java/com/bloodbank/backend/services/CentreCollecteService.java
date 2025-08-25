@@ -39,4 +39,5 @@ public class CentreCollecteService {
     public void delete(Long id) {
         centreCollecteRepository.deleteById(id);
     }
+
 }
