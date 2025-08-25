@@ -7,7 +7,6 @@ import com.bloodbank.backend.services.CentreCollecteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -100,6 +99,23 @@ public class CentreServiceTest {
 
     @Test
     void testDeleteCentreCollecte(){
+        //Créer un centre initial
+        CentreCollecte centre = new CentreCollecte();
+        centre.setName("Centre Hassan II");
+        centre.setAdresse("Avenue Royale");
+        centre.setVille("aa");
+
+        CentreCollecte saved = centreCollecteRepository.save(centre);
+
+        //verrifier la creation
+        assertNotNull(centreCollecteRepository.findById(saved.getId()).orElse(null));
+
+        //supprimer
+        centreCollecteService.delete(saved.getId());
+
+        //verifier le suppression
+        Optional<CentreCollecte> deleted = centreCollecteRepository.findById(saved.getId());
+        assertTrue(deleted.isEmpty(), "Le centre supprimer");
 
     }
 
