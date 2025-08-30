@@ -42,6 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/register/donor").permitAll()
+                        .requestMatchers("/api/rendezVous/{id}").permitAll()
+                        //.requestMatchers("/api/rendezVous/all").permitAll()
                         //.requestMatchers("/api/CentresCollecte/addCenter").permitAll()
                         //.requestMatchers("/user/register").permitAll()
                         //.requestMatchers("/user/login").permitAll()
