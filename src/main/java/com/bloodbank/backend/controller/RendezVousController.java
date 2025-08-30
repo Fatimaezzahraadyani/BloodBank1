@@ -40,7 +40,7 @@ public class RendezVousController {
         return ResponseEntity.ok(rendezVousService.create(rendezVous));
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<RendezVous> getById(@PathVariable Long id) {
         return ResponseEntity.of(rendezVousService.findById(id));
