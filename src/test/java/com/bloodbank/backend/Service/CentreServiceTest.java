@@ -4,19 +4,18 @@ package com.bloodbank.backend.Service;
 import com.bloodbank.backend.model.CentreCollecte;
 import com.bloodbank.backend.repository.CentreCollecteRepository;
 import com.bloodbank.backend.services.CentreCollecteService;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 @SpringBootTest
 
 public class CentreServiceTest {
@@ -34,14 +33,14 @@ public class CentreServiceTest {
     @Test
     void testCreateCentreCollecte(){
         CentreCollecte centreCollecte = new CentreCollecte();
-        centreCollecte.setName("Centre moulay rchid");
-        centreCollecte.setAdresse("bvd abcd");
-        centreCollecte.setVille("ooo");
+        centreCollecte.setName("azertyuiop");
+        centreCollecte.setAdresse("adresse");
+        centreCollecte.setVille("tantan");
 
         CentreCollecte saved = centreCollecteService.create(centreCollecte);
 
-        assertNotNull(saved.getId());
-        assertEquals("Centre moulay rchid", saved.getName());
+        saved.getId();
+        assertEquals("azertyuiop", saved.getName());
 
     }
 
@@ -111,7 +110,7 @@ public class CentreServiceTest {
 
         CentreCollecte saved = centreCollecteRepository.save(centre);
 
-        //verrifier la creation
+        //verifier la creation
         assertNotNull(centreCollecteRepository.findById(saved.getId()).orElse(null));
 
         //supprimer

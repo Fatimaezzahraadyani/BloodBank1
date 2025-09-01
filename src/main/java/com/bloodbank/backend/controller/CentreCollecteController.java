@@ -38,12 +38,6 @@ public class CentreCollecteController {
         return ResponseEntity.ok(centreCollecteService.create(centreCollecte));
     }
 
-   // @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    @PostMapping("/addCenter")
-//    private CentreCollecte createCentreCollecte(@RequestBody CentreCollecte centreCollecte) {
-//        return centreCollecteService.createCenter(centreCollecte);
-//    }
-
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public CentreCollecte updateCentreCollecte(@RequestBody CentreCollecte centreCollecte, @PathVariable Long id) {

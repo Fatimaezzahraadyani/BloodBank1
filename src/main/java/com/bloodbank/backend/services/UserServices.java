@@ -8,16 +8,13 @@ import com.bloodbank.backend.model.Role;
 import com.bloodbank.backend.model.User;
 import com.bloodbank.backend.repository.AdminRepository;
 import com.bloodbank.backend.repository.DonorRepository;
-import com.bloodbank.backend.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Driver;
+
 import java.util.List;
 import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 
 @Service
@@ -27,12 +24,11 @@ public class UserServices {
     private final DonorRepository donorRepository;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-    private final UserRepository userRepository;
 
-    public UserServices(AdminRepository adminRepository, DonorRepository donorRepository, UserRepository userRepository) {
+
+    public UserServices(AdminRepository adminRepository, DonorRepository donorRepository) {
         this.adminRepository = adminRepository;
         this.donorRepository = donorRepository;
-        this.userRepository = userRepository;
     }
 
 
@@ -123,29 +119,7 @@ public class UserServices {
         }
     }
 
-//    public User UpdateUser(Long id,UpdateUserDto dto) {
-//        User ExistingUser = userRepository.findById(id).orElseThrow(()->new RuntimeException("user intouvable"));
-//
-//        ExistingUser.setFirstName(dto.firstName());
-//        ExistingUser.setLastName(dto.lastName());
-//        ExistingUser.setEmail(dto.email());
-//        if(dto.password() != null && !dto.password().isEmpty()){
-//            ExistingUser.setPassword(encoder.encode(dto.password()));
-//        }
-//        ExistingUser.setRole(dto.role());
-//
-//        return userRepository.save(ExistingUser);
-//    }
-//
-//    public void deleteUser(Long id){
-//        userRepository.deleteById(id);
-//    }
-//
-//    public Long getSenderIdByEmail(String email) {
-//        Sender sender = senderRepository.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("Sender not found"));
-//        return sender.getId();
-//    }
+
 
 
 }

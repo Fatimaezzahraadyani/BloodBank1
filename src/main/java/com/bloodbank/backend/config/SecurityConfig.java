@@ -3,12 +3,12 @@ package com.bloodbank.backend.config;
 
 import com.bloodbank.backend.repository.AdminRepository;
 import com.bloodbank.backend.repository.DonorRepository;
-import com.bloodbank.backend.repository.UserRepository;
+
 
 
 import com.bloodbank.backend.security.CustomUserDetailService;
 import com.bloodbank.backend.services.JwtService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,6 +40,7 @@ public class SecurityConfig {
         http
 
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // Désactivation CSRF car l'application est une API REST stateless sécurisée par JWT
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
@@ -72,7 +73,6 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
