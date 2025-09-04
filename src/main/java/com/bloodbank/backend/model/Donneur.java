@@ -18,7 +18,7 @@ public class Donneur extends User {
     private LocalDate birthdate;
 
     @Column(name = "weight", nullable = true)
-    private double weight;
+    private  Double weight;
 
     @Column(name = "maladieHistory", nullable = true)
     private String maladieHistory;
@@ -36,10 +36,10 @@ public class Donneur extends User {
     private String maladiesChroniques;
 
     @Column(name = "priseDeMedicaments", nullable = true)
-    private boolean priseDeMedicaments;
+    private Boolean priseDeMedicaments;
 
     @Column(name = "chirurgiesRecentes", nullable = true)
-    private boolean chirurgiesRecentes;
+    private Boolean chirurgiesRecentes;
 
     public String getBloodType() {
         return bloodType;
@@ -57,7 +57,7 @@ public class Donneur extends User {
         this.birthdate = birthdate;
     }
 
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
@@ -105,7 +105,7 @@ public class Donneur extends User {
         this.maladiesChroniques = maladiesChroniques;
     }
 
-    public boolean isPriseDeMedicaments() {
+    public Boolean isPriseDeMedicaments() {
         return priseDeMedicaments;
     }
 
@@ -113,7 +113,7 @@ public class Donneur extends User {
         this.priseDeMedicaments = priseDeMedicaments;
     }
 
-    public boolean isChirurgiesRecentes() {
+    public Boolean isChirurgiesRecentes() {
         return chirurgiesRecentes;
     }
 
