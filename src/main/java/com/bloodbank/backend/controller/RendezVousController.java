@@ -45,13 +45,14 @@ public class RendezVousController {
         return ResponseEntity.of(rendezVousService.findById(id));
     }
 
-
+    @PreAuthorize("hasAuthority('ROLE_DONOR')")
     @GetMapping("/donneur/{donneurId}")
     public ResponseEntity<List<RendezVous>> getByDonneur(@PathVariable Long donneurId){
         Donneur donneur = donorRepository.findById(donneurId).orElseThrow();
         return ResponseEntity.ok(rendezVousService.getByDonneur(donneur));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_DONOR')")
     @GetMapping("/centre/{centreId}")
     public ResponseEntity<List<RendezVous>> getByCenter(@PathVariable Long centreId){
         CentreCollecte centreCollecte = centreCollecteRepository.findById(centreId).orElseThrow();

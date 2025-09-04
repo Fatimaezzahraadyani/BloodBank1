@@ -21,8 +21,8 @@ public class AdminInitializer {
     CommandLineRunner createAdmin(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            @Value("${admin.email}") String adminEmail,     // ⚠️ INJECTION DIRECTE dans le paramètre
-            @Value("${admin.password}") String adminPassword // ⚠️ INJECTION DIRECTE dans le paramètre
+            @Value("${admin.email}") String adminEmail,     //  INJECTION DIRECTE dans le paramètre
+            @Value("${admin.password}") String adminPassword // INJECTION DIRECTE dans le paramètre
     ) {
         return args -> {
             if (userRepository.findByEmail(adminEmail).isEmpty()) {
