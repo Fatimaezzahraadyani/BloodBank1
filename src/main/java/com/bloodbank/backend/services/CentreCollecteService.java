@@ -2,7 +2,6 @@ package com.bloodbank.backend.services;
 
 import com.bloodbank.backend.model.CentreCollecte;
 import com.bloodbank.backend.repository.CentreCollecteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

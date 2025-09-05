@@ -1,6 +1,14 @@
 package com.bloodbank.backend.config;
 
 
+import com.bloodbank.backend.repository.AdminRepository;
+import com.bloodbank.backend.repository.DonorRepository;
+
+
+
+import com.bloodbank.backend.security.CustomUserDetailService;
+import com.bloodbank.backend.services.JwtService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -10,6 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,24 +34,18 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
-    private final UserDetailsService userDetailsService;
-
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetailsService) {
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.userDetailsService = userDetailsService;
-    }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) throws Exception {
         http
 
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // Désactivation CSRF car l'application est une API REST stateless sécurisée par JWT
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/register/donor").permitAll()
-                        .requestMatchers("/api/rendezVous/{id}").permitAll()
+                        //requestMatchers("/api/rendezVous/{id}").permitAll()
                         //.requestMatchers("/api/rendezVous/all").permitAll()
                         //.requestMatchers("/api/CentresCollecte/addCenter").permitAll()
                         //.requestMatchers("/user/register").permitAll()
@@ -53,7 +56,7 @@ public class SecurityConfig {
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .authenticationProvider(authenticationProvider());
+                .authenticationProvider(authenticationProvider);
 
         return http.build();
     }
@@ -64,13 +67,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -84,6 +86,16 @@ public class SecurityConfig {
         return source;
     }
 
+    @Bean
+    public UserDetailsService userDetailsService(
+            AdminRepository adminRepository,
+            DonorRepository donorRepository
+    ) {
+        return new CustomUserDetailService(adminRepository, donorRepository);
+    }
 
-
+    @Bean
+    public JwtAuthFilter jwtAuthFilter(UserDetailsService userDetailsService, JwtService jwtService) {
+        return new JwtAuthFilter(userDetailsService, jwtService);
+    }
 }

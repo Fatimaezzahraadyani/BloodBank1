@@ -7,13 +7,14 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.cglib.core.internal.Function;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashMap;
+
 import java.util.Map;
 
 @Service
@@ -30,17 +31,6 @@ public class JwtService {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-
-//    public String generateToken(UserDetails userDetails) {
-//        Map<String, Object> claims = new HashMap<>();
-//
-//        if (userDetails instanceof com.bloodbank.backend.services.JwtService) {
-//            claims.put("role", User.getUser().getRole().name()); // ajoute le rôle
-//        }
-//
-//        return generateToken(claims, userDetails);
-//    }
-
 
     public String generateToken(
             Map<String, Object> extraClaims,

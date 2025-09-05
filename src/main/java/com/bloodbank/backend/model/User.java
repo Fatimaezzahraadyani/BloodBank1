@@ -1,6 +1,5 @@
 package com.bloodbank.backend.model;
 
-import jakarta.annotation.Resource;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +9,7 @@ public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private long id;
+    private Long id;
 
     @Column(name = "firstName", nullable = false)
     private String firstName;

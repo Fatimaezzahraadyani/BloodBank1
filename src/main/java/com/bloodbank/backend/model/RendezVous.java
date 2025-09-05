@@ -11,7 +11,7 @@ public class RendezVous {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id;
+    private Long id;
     private LocalDate date;
     private String heure;
 
@@ -24,7 +24,7 @@ public class RendezVous {
     private CentreCollecte centreCollecte;
 
     @Enumerated(EnumType.STRING)
-    private Statut statut = Statut.en_attente;
+    private Statut statut = Statut.EN_ATTENTE;
 
     public long getId() {
         return id;
