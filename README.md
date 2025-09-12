@@ -8,6 +8,8 @@
 #### ***Sequence Diagram | RéservationRendezVous***
 ![Sequence uml diagram](./uml/RéservationRendezVous.jpg)
 
+#### ***Sequence Diagram | Login***
+![Sequence uml diagram](./uml/Seqlogin.jpg)
 
 #### ***Sequence Diagram | Gestion des RendezVous par Admin***
 ![Sequence uml diagram](./uml/RDVManagementByAdmin.jpg)
