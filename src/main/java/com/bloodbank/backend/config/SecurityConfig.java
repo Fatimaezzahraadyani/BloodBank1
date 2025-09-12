@@ -27,6 +27,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -42,9 +43,16 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // Désactivation CSRF car l'application est une API REST stateless sécurisée par JWT
                 .csrf(csrf -> csrf.disable())
+                //Définir les règles d’accès aux endpoints
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/register/donor").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll() // The main Swagger UI page
+                        .requestMatchers("/swagger-ui/**").permitAll()   // Static resources (JS, CSS, images)
+                        .requestMatchers("/v3/api-docs/").permitAll()  // The OpenAPI JSON/YAML definitions
+                        .requestMatchers("/api-docs/").permitAll()     // Sometimes this path is also used
+                        .requestMatchers("/webjars/**").permitAll()
+                        //.requestMatchers("/api/donneurs/{donorId}/profile").hasRole("DONOR")
                         //requestMatchers("/api/rendezVous/{id}").permitAll()
                         //.requestMatchers("/api/rendezVous/all").permitAll()
                         //.requestMatchers("/api/CentresCollecte/addCenter").permitAll()
@@ -76,6 +84,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://127.0.0.1:4200"));
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
