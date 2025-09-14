@@ -2,7 +2,8 @@ version: '3.8'
 services:
   # Le service de l'application
   backend:
-    build: . # Indique de construire l'image à partir du Dockerfile dans le répertoire courant
+    build: .   # Indique de construire l'image à partir du Dockerfile dans le répertoire courant
+    container_name: backend_container
     ports:
       - "8082:8082"
     environment:
@@ -16,11 +17,12 @@ services:
   # Le service de la base de données MySQL
   db:
     image: mysql:8.0
+    container_name: mysql_container
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: bloodbank
     ports:
-      - "3307:3306" # Mappe le port 3306 de la machine hôte au port 3306 du conteneur
+      - "3307:3306" # mappe le port 3306 du conteneur MySQL au port 3307 de ta machine
     volumes:
       # Rend les données persistantes même si le conteneur s'arrête
       - db_data:/var/lib/mysql

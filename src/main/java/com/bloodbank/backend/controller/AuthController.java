@@ -3,16 +3,10 @@ package com.bloodbank.backend.controller;
 import com.bloodbank.backend.dto.AuthRequest;
 import com.bloodbank.backend.dto.AuthResponse;
 import com.bloodbank.backend.dto.RegisterDonorDTO;
-import com.bloodbank.backend.mappers.DonorMapper;
 
-import com.bloodbank.backend.repository.DonorRepository;
-import com.bloodbank.backend.repository.UserRepository;
 import com.bloodbank.backend.services.AuthService;
-import com.bloodbank.backend.services.JwtService;
-import com.bloodbank.backend.services.UserServices;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

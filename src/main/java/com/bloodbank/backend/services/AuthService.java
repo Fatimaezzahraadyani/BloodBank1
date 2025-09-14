@@ -46,6 +46,7 @@ public class AuthService {
     }
 
     public String login(AuthRequest request) {
+        //Charge l’utilisateur
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
         if (!passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
@@ -59,8 +60,8 @@ public class AuthService {
     }
 
     public AuthResponse registerDonor(RegisterDonorDTO dto) {
-        Donneur donneur = DonorMapper.toEntity(dto);
-        donneur.setPassword(passwordEncoder.encode(dto.password()));
+        Donneur donneur = DonorMapper.toEntity(dto);  //CONVERTIR DTO en entity
+        donneur.setPassword(passwordEncoder.encode(dto.password()));  // Encode le mot de passe
         donneur.setRole(Role.DONOR);
         donorRepository.save(donneur);
 
