@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // Désactivation CSRF car l'application est une API REST stateless sécurisée par JWT
                 .csrf(csrf -> csrf.disable())
-                //Définir les règles d’accès aux endpoints
+                //Définir les règles d’accès aux endpoints /URL
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/register/donor").permitAll()
@@ -74,6 +74,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    //vérifier l'identité d'un user
     @Bean
     public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
