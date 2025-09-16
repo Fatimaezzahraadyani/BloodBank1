@@ -33,14 +33,14 @@ public class CentreServiceTest {
     @Test
     void testCreateCentreCollecte(){
         CentreCollecte centreCollecte = new CentreCollecte();
-        centreCollecte.setName("azertyuiop");
-        centreCollecte.setAdresse("adresse");
-        centreCollecte.setVille("tantan");
+        centreCollecte.setName("ezzouhour");
+        centreCollecte.setAdresse("avenue Mohammed 6");
+        centreCollecte.setVille("Rabat");
 
         CentreCollecte saved = centreCollecteService.create(centreCollecte);
 
         saved.getId();
-        assertEquals("azertyuiop", saved.getName());
+        assertEquals("ezzouhour", saved.getName());
 
     }
 
